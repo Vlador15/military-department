@@ -1,0 +1,99 @@
+.container {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  background: url('/assets/images/fon.jpg');
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+.blur {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(48, 83, 228, 0.4);
+  backdrop-filter: blur(7px);
+  z-index: 1;
+}
+
+.wrapper {
+  top: 0;
+  bottom: 0;
+  right: 90px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  z-index: 2;
+}
+
+.form {
+  text-align: center;
+  position: relative;
+}
+
+.form .input {
+  width: 325px;
+  height: 50px;
+  font-size: 16px;
+
+  outline: none;
+  background: #f9f9f9;
+  border: 3px solid #073dfd;
+  border-radius: 10px;
+}
+
+.form .input:not(:first-child) {
+  margin-top: 27px;
+}
+
+.form input[type='text'] {
+  box-sizing: border-box;
+  padding-left: 12px;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.buttonEnter {
+  cursor: pointer;
+  width: 284px;
+  height: 43px;
+  background: #f8c950;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 24px;
+  border: none;
+  margin-top: 44px;
+}
+
+.buttonToken {
+  cursor: pointer;
+  width: 284px;
+  height: 43px;
+  background: #3053e4;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 24px;
+  border: none;
+  margin-top: 27px;
+}
+
+.error {
+  color: #ff9900;
+  font-size: 16px;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-top: 4px;
+  position: absolute;
+  left: 20px;
+}
