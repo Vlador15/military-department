@@ -5,6 +5,13 @@ import Typography from '@mui/material/Typography';
 import MenuPerson from './menu';
 
 export function TablePersonnel({ data }) {
+  const students = [data.commander];
+  data.groups?.forEach((group) => {
+    students.push(group.commander);
+
+    group.students.forEach((student) => students.push(student));
+  });
+
   return (
     <Box sx={{ width: '360px' }}>
       <Box
@@ -18,7 +25,7 @@ export function TablePersonnel({ data }) {
           Личный состав
         </Typography>
       </Box>
-      {data.map((row, index) => (
+      {students.map((row, index) => (
         <Box key={index} sx={{ px: '60px', borderBottom: '1px solid #979797' }}>
           <Box
             display="flex"
@@ -26,7 +33,7 @@ export function TablePersonnel({ data }) {
             justifyContent={'space-between'}
             sx={{ py: '17px' }}
           >
-            <img src={row.avatar || avatar} alt="avatar" />
+            <img src={row?.avatar || avatar} alt="avatar" />
             <Typography
               variant="inherit"
               sx={{ ml: '12px', textAlign: 'center' }}

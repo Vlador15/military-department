@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { getSquads, getSquadsById } from '../api';
+import { getSquads } from '../api';
 
 export default class DataStore {
   squads = []; // список всех взводов
@@ -14,8 +14,8 @@ export default class DataStore {
     this.setSquads();
   }
 
-  setSquads() {
-    this.squads = getSquads();
+  async setSquads() {
+    this.squads = await getSquads();
   }
 
   setSquad(data) {
@@ -32,11 +32,44 @@ export default class DataStore {
     return this.activeSquad;
   }
 
+  getSquadsById(id) {
+    return this.squads.filter((x) => x.id === id);
+  }
+
   // загрузка по API личного состава для выбранного взвода
   setSquadPeoples = (id) => {
-    const data = getSquadsById(Number(id));
-    this.squadPeoples = data;
-    return data;
+    const squad = this.getSquadsById(id);
+
+    if (squad[0]) {
+      const students = [squad[0].commander];
+      squad[0].groups?.forEach((group) => {
+        students.push(group.commander);
+
+        group.students.forEach((student) => students.push(student));
+      });
+
+      this.squadPeoples = students;
+      return students;
+    }
+
+    return squad;
+  };
+
+  // получить командиров отделений в взводе по номеру
+  getCommanderSquadById = (id) => {
+    const squad = this.getSquadsById(id);
+
+    if (squad[0]) {
+      const students = [squad[0].commander];
+      squad[0].groups?.forEach((group) => {
+        students.push(group.commander);
+      });
+
+      this.squadPeoples = students;
+      return students;
+    }
+
+    return squad;
   };
 
   // получение личного состава для выбранного взвода
@@ -54,26 +87,18 @@ export default class DataStore {
   // получить профиль подчиненного по id
   getProfileById = (squadId, id) => {
     const peoples = this.getSquadPeoples(squadId);
-    return peoples.find((x) => x.id === Number(id));
+    return peoples.find((x) => x.id === id);
   };
 
   // получить командира взвода
   get getCommander() {
-    return this.squad.find((x) => x.level === 1);
+    return this.squad.commander;
   }
 
   // получение командиров отделения
-  get getCommandersDivisions() {
-    const res = this.squad.filter((x) => x.level === 2);
-    return res;
+  get getGroups() {
+    return this.squad.groups;
   }
-
-  // получить командиров отделений в взводе по номеру
-  getCommanderSquadById = (id) => {
-    const data = this.getSquadPeoples(id);
-
-    return data.filter((x) => x.level === 2);
-  };
 
   // получение выбранного взвода
   get getSquad() {
@@ -81,8 +106,8 @@ export default class DataStore {
   }
 
   // получение выбранного взвода по номеру
-  getSquadByNumber = (number) => {
-    return this.squads.find((x) => x.number === Number(number));
+  getSquadById = (id) => {
+    return this.squads.find((x) => x.id === id);
   };
 
   // получение всех взводов

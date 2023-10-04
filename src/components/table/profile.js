@@ -24,11 +24,14 @@ export const ProfileTable = ({ profile }) => {
         className={classes.tableCellHead}
       >
         <TableBody>
-          <Row label="ФИО" value={profile.name} />
-          <Row label="Дата рождения" value={profile.birthday} />
-          <Row label="Взвод" value={profile.squadId} />
+          <Row label="ФИО" value={profile.fullName} />
+          <Row
+            label="Дата рождения"
+            value={profile.birthdate?.slice(0, 3).reverse().join('.')}
+          />
+          <Row label="Взвод" value={profile.platoon} />
           <Row label="Должность" value={profile.role} />
-          <Row label="Номер ВУС" value={profile.vus} />
+          <Row label="Номер ВУС" value={profile.vuc} />
         </TableBody>
       </Table>
     </TableContainer>

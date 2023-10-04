@@ -8,7 +8,7 @@ export default function MenuPerson({ data }) {
   const open = Boolean(anchorEl);
 
   if (!data) return;
-  const { name, id } = data;
+  const { fullName, id } = data;
 
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
@@ -42,7 +42,7 @@ export default function MenuPerson({ data }) {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        {name || ''}
+        {fullName || ''}
       </Typography>
       <Menu
         id="basic-menu"

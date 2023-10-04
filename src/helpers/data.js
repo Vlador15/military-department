@@ -1,4 +1,4 @@
-export const getCardsCarousel = (squad) => {
+export const getCardsCarousel = ({ squad, students }) => {
   if (!squad) return [];
 
   const addRow = (label, title, desc, backgroundColor) => ({
@@ -9,8 +9,13 @@ export const getCardsCarousel = (squad) => {
   });
 
   return [
-    addRow('Численность взвода', squad?.peoples, 'человек', '#3053E4'),
-    addRow('Количество отделений', squad?.divisions, 'отделения', '#3053E4'),
+    addRow('Численность взвода', students.length, 'человек', '#3053E4'),
+    addRow(
+      'Количество отделений',
+      squad?.groups.length,
+      'отделения',
+      '#3053E4'
+    ),
     addRow(
       'Успеваемость отделений',
       squad?.grade,
@@ -40,7 +45,7 @@ export const structurePeoples = [
   },
   {
     label: 'ФИО',
-    field: 'name',
+    field: 'fullName',
     type: '',
   },
   {
@@ -58,12 +63,12 @@ export const structurePeoples = [
 export const structurePeoplesCommander = [
   {
     label: 'Отделение',
-    field: 'division',
+    field: 'platoon',
     type: '',
   },
   {
     label: 'Командир',
-    field: 'name',
+    field: 'fullName',
     type: '',
   },
   {

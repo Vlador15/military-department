@@ -14,6 +14,13 @@ export const Profile = () => {
   const { squadId, id } = useParams();
   const navigate = useNavigate();
 
+  const squad = data.getSquadById(squadId);
+
+  // если отряд не выбран, переадрисовываем
+  useEffect(() => {
+    if (!squad) return navigate('/');
+  }, [squad, navigate]);
+
   const profile = data.getProfileById(squadId, id);
 
   profile.statsVisit = 90;

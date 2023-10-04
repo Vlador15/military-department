@@ -1,4 +1,6 @@
 import classes from './styles.module.scss';
+import avatar from '../../assets/images/avatar.png';
+
 import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -16,7 +18,7 @@ const Cell = ({ row, item, handleBtn }) => {
     case 'img': {
       component = (
         <TableCell align="center">
-          <img src={item[row.field]} alt="avatar" />
+          <img src={item[row.field] || avatar} alt="avatar" />
         </TableCell>
       );
       break;

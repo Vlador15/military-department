@@ -13,22 +13,25 @@ import {
   structurePeoplesCommander,
 } from '../helpers/data.js';
 import { SliderCards } from '../components/card/sliderCards.js';
+import { observer } from 'mobx-react-lite';
 
-export const StatisticsSquad = () => {
+export const StatisticsSquad = observer(() => {
   const { data } = useContext(Context);
   const { squadId } = useParams();
   const navigate = useNavigate();
 
-  const squad = data.getSquadByNumber(squadId);
+  const squad = data.getSquadById(squadId);
   const squadPeoples = data.getSquadPeoples(squadId);
   const squadPeoplesCommanders = data.getCommanderSquadById(squadId);
+
+  const students = data.getSquadPeoples(squadId);
 
   // если отряд не выбран, переадрисовываем
   useEffect(() => {
     if (!squad) return navigate('/');
   }, [squad, navigate]);
 
-  const cards = getCardsCarousel(squad);
+  const cards = getCardsCarousel({ squad, students });
 
   return (
     squad && (
@@ -97,4 +100,4 @@ export const StatisticsSquad = () => {
       </Layout>
     )
   );
-};
+});

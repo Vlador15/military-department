@@ -4,7 +4,7 @@ import { Layout } from '../components/layout/index.js';
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { getSquadsById } from '../api/index.js';
+
 import { useContext } from 'react';
 import { Context } from '../index.js';
 import { useParams } from 'react-router-dom';
@@ -15,9 +15,9 @@ export const StructureSquad = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const result = getSquadsById(id);
-    data.setSquad(result);
-    setSquad(result);
+    const result = data.getSquadsById(id);
+    data.setSquad(result[0]);
+    setSquad(result[0]);
   }, [data, id]);
 
   return (
@@ -36,11 +36,7 @@ export const StructureSquad = () => {
         </Box>
         <Box display="flex" sx={{ ml: '52px', mr: '77px' }}>
           <TablePersonnel data={squad} />
-          <TablePersonnelStructure
-            commandersDivisions={data.getCommandersDivisions}
-            commander={data.getCommander}
-            getPersonnelDivision={data.getPersonnelDivision}
-          />
+          <TablePersonnelStructure squad={squad} />
         </Box>
       </Layout>
     )
